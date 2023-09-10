@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: python-app
-          image: 955865924758.dkr.ecr.eu-central-1.amazonaws.com/pythontestapp:$DOCKER_TAG # Replace with your ECR image URL
+          image: 955865924758.dkr.ecr.eu-central-1.amazonaws.com/pythontestapp:latest # Replace with your ECR image URL
           ports:
             - containerPort: 8080
