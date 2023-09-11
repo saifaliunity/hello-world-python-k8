@@ -36,13 +36,13 @@ pipeline {
         stage('Commit and Push Changes') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github-s', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                    sh '''
-                        git config --global user.email 'saifaliunity@gmail.com'
-                        git config --global user.name 'Saif Ali'
-                        git add k8s/manifest.yaml
-                        git commit -m "Update image tag to ${env.GIT_TAG_NAME}"
-                        git push origin main
-                    '''
+                sh """
+                    git config --global user.email 'saifaliunity@gmail.com'
+                    git config --global user.name 'Saif Ali'
+                    git add k8s/manifest.yaml
+                    git commit -m "Update image tag to ${env.GIT_TAG_NAME}"
+                    git push origin main
+                """
                 }
             }
         }
