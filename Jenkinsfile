@@ -26,7 +26,12 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'aws-keys', usernameVariable: 'AWS_USERNAME', passwordVariable: 'AWS_PASSWORD')]){
+                    withCredentials([[
+    $class: 'AmazonWebServicesCredentialsBinding',
+    credentialsId: "aws-keys",
+    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+]]) {
                         sh 'docker build -t 955865924758.dkr.ecr.eu-central-1.amazonaws.com/pythontestapp:${env.GIT_TAG_NAME} .'
                         sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 955865924758.dkr.ecr.eu-central-1.amazonaws.com'
                         sh 'docker push 955865924758.dkr.ecr.eu-central-1.amazonaws.com/pythontestapp:${env.GIT_TAG_NAME}'
